@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vi: set et smarttab sw=4 tabstop=4: -->
+<!--
+Copyright © 2018 xietaojie1992@github and others. All rights reserved.
+
+This program and the accompanying materials are made available under the
+terms of the Eclipse Public License v1.0 which accompanies this distribution,
+and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<snapshot>
+    <required-capabilities>
+        <capability>urn:opendaylight:params:xml:ns:yang:labcontroller:impl?module=labcontroller-impl&amp;revision=2014-12-10</capability>
+        <capability>
+            urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?module=opendaylight-md-sal-binding&amp;revision=2013-10-28
+        </capability>
+    </required-capabilities>
+    <configuration>
+
+        <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <module>
+                    <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:labcontroller:impl">prefix:labcontroller</type>
+                    <name>labcontroller-default</name>
+                    <broker>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-broker-osgi-registry
+                        </type>
+                        <name>binding-osgi-broker</name>
+                    </broker>
+
+
+                    <data-broker>
+                        <type
+                                xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-async-data-broker
+                        </type>
+                        <name>binding-data-broker</name>
+                    </data-broker>
+
+                    <rpc-registry>
+                        <type
+                                xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">binding:binding-rpc-registry
+                        </type>
+                        <name>binding-rpc-broker</name>
+                    </rpc-registry>
+                    <notification-service>
+                        <type
+                                xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-notification-service
+                        </type>
+                        <name>binding-notification-broker</name>
+                    </notification-service>
+
+                    <openflow-switch-connection-provider>
+                        <type
+                                xmlns:ofSwitch="urn:opendaylight:params:xml:ns:yang:openflow:switch:connection:provider">
+                            ofSwitch:openflow-switch-connection-provider
+                        </type>
+                        <name>openflow-switch-connection-provider-default</name>
+                    </openflow-switch-connection-provider>
+
+                    <openflow-plugin-extension-registry>
+                        <type
+                                xmlns:ofpExtProv="urn:opendaylight:params:xml:ns:yang:openflowplugin:extension:api">
+                            ofpExtProv:openflow-extension-registry-provider
+                        </type>
+                        <name>openflow-ext-provider</name>
+                    </openflow-plugin-extension-registry>
+
+                    <nicira-extension-codec-registrator>
+                        <type
+                                xmlns:prefix="urn:opendaylight:params:xml:ns:yang:openflowplugin:ofjava:nx:api:config">
+                            prefix:nicira-extension-codec-registrator
+                        </type>
+                        <name>openflowjava-nicira-ext-registrator</name>
+                    </nicira-extension-codec-registrator>
+                </module>
+            </modules>
+        </data>
+    </configuration>
+</snapshot>
