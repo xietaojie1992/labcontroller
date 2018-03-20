@@ -14,8 +14,8 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
             urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?module=opendaylight-md-sal-binding&amp;revision=2013-10-28
         </capability>
     </required-capabilities>
-    <configuration>
 
+    <configuration>
         <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
             <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
                 <module>
@@ -78,4 +78,5 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
             </modules>
         </data>
     </configuration>
+
 </snapshot>

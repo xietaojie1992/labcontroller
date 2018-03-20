@@ -8,32 +8,41 @@ terms of the Eclipse Public License v1.0 which accompanies this distribution,
 and is available at http://www.eclipse.org/legal/epl-v10.html
 -->
 <features name="odl-labcontroller-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
-  <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
-  <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
-  <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
-  <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
-  <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
-  <feature name='odl-labcontroller-api' version='${project.version}' description='OpenDaylight :: labcontroller :: api'>
-    <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
-    <bundle>mvn:com.xietaojie.lab/labcontroller-api/{{VERSION}}</bundle>
-  </feature>
-  <feature name='odl-labcontroller' version='${project.version}' description='OpenDaylight :: labcontroller'>
-    <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
-    <feature version='${project.version}'>odl-labcontroller-api</feature>
-    <bundle>mvn:com.xietaojie.lab/labcontroller-impl/{{VERSION}}</bundle>
-    <configfile finalname="${configfile.directory}/labcontroller.xml">mvn:com.xietaojie.lab/labcontroller-impl/{{VERSION}}/xml/config</configfile>
-  </feature>
-  <feature name='odl-labcontroller-rest' version='${project.version}' description='OpenDaylight :: labcontroller :: REST'>
-    <feature version="${project.version}">odl-labcontroller</feature>
-    <feature version="${restconf.version}">odl-restconf</feature>
-  </feature>
-  <feature name='odl-labcontroller-ui' version='${project.version}' description='OpenDaylight :: labcontroller :: UI'>
-    <feature version="${project.version}">odl-labcontroller-rest</feature>
-    <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
-    <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
-    <feature version="${dlux.version}">odl-dlux-yangui</feature>
-  </feature>
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+    <repository>mvn:org.opendaylight.yangtools/features-yangtools/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.controller/features-mdsal/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.mdsal.model/features-mdsal-model/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.netconf/features-restconf/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.dlux/features-dlux/{{VERSION}}/xml/features</repository>
+    <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${openflowplugin.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin-extension/${openflowplugin.version}/xml/features</repository>
+
+    <feature name='odl-labcontroller-api' version='${project.version}' description='OpenDaylight :: labcontroller :: api'>
+        <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
+        <bundle>mvn:com.xietaojie.lab/labcontroller-api/{{VERSION}}</bundle>
+    </feature>
+
+    <feature name='odl-labcontroller' version='${project.version}' description='OpenDaylight :: labcontroller'>
+        <feature version='${mdsal.version}'>odl-mdsal-broker</feature>
+        <feature version='${project.version}'>odl-labcontroller-api</feature>
+        <feature version="${openflowplugin.version}">odl-openflowplugin-flow-services</feature>
+        <feature version="${openflowplugin.version}">odl-openflowplugin-nxm-extensions</feature>
+        <!--<feature version='${project.version}'>odl-labcontroller-rest</feature>-->
+        <bundle>mvn:com.xietaojie.lab/labcontroller-impl/{{VERSION}}</bundle>
+        <configfile finalname="${configfile.directory}/labcontroller.xml">mvn:com.xietaojie.lab/labcontroller-impl/{{VERSION}}/xml/config
+        </configfile>
+    </feature>
+
+    <feature name='odl-labcontroller-rest' version='${project.version}' description='OpenDaylight :: labcontroller :: REST'>
+        <feature version="${project.version}">odl-labcontroller</feature>
+        <feature version="${restconf.version}">odl-restconf</feature>
+    </feature>
+    <feature name='odl-labcontroller-ui' version='${project.version}' description='OpenDaylight :: labcontroller :: UI'>
+        <feature version="${project.version}">odl-labcontroller-rest</feature>
+        <feature version="${restconf.version}">odl-mdsal-apidocs</feature>
+        <feature version="${mdsal.version}">odl-mdsal-xsql</feature>
+        <feature version="${dlux.version}">odl-dlux-yangui</feature>
+    </feature>
 
 </features>

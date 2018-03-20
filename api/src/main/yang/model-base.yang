@@ -1,0 +1,15 @@
+module model-base {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:model:base";
+    prefix "base";
+
+    revision "2018-03-17" {
+        description "Initial revision of labcontroller base model";
+    }
+
+    grouping rpc-result-grouping {
+        leaf flag { type boolean; }
+        leaf code { type string; }
+        leaf message { type string; }
+    }
+}

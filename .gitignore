@@ -1,3 +1,5 @@
+yang-gen-config/
+yang-gen-sal/
 *target/
 .idea
 *.iml

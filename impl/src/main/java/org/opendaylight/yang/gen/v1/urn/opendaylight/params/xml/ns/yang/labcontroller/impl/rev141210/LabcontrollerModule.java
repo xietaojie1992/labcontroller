@@ -39,7 +39,6 @@ public class LabcontrollerModule
     public java.lang.AutoCloseable createInstance() {
         NiciraExtensionCodecRegistrator niciraExtensionCodecRegistrator = getNiciraExtensionCodecRegistratorDependency();
         SwitchConnectionProvider switchConnectionProvider = getOpenflowSwitchConnectionProviderDependency();
-        PacketProcessingService packetProcessingService = getRpcRegistryDependency().getRpcService(PacketProcessingService.class);
         ExtensionConverterRegistrator extensionConverterRegistrator = getOpenflowPluginExtensionRegistryDependency()
                 .getExtensionConverterRegistrator();
         NotificationProviderService notificationProviderService = getNotificationServiceDependency();
@@ -49,7 +48,7 @@ public class LabcontrollerModule
         Preconditions.checkNotNull(notificationProviderService, "NotificationProviderService can not be null");
 
         LabcontrollerProvider provider = new LabcontrollerProvider(switchConnectionProvider, notificationProviderService,
-                packetProcessingService, extensionConverterRegistrator, niciraExtensionCodecRegistrator);
+                extensionConverterRegistrator, niciraExtensionCodecRegistrator);
         getBrokerDependency().registerProvider(provider);
         return provider;
     }

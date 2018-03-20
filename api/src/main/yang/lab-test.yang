@@ -1,0 +1,24 @@
+module lab-test {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:test";
+    prefix "test";
+
+    import model-base { prefix base; revision-date 2018-03-17; }
+
+    revision "2018-03-17" {
+        description "Initial revision of labcontroller lab test services";
+    }
+
+    rpc ping {
+        output { leaf response { type string; default "PONG"; }}
+    }
+
+    rpc say-hello-to-device {
+        input {
+            leaf dpid { type string;}
+        }
+        output {
+            uses base:rpc-result-grouping;
+        }
+    }
+}
