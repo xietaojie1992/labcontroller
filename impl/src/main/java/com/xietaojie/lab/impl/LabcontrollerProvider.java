@@ -17,6 +17,7 @@ import org.opendaylight.openflowjava.nx.api.NiciraExtensionCodecRegistrator;
 import org.opendaylight.openflowjava.protocol.spi.connection.SwitchConnectionProvider;
 import org.opendaylight.openflowplugin.extension.api.ExtensionConverterRegistrator;
 import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180317.LabTestService;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.LabHealthCareService;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.experimenter.message.service.rev151020.SalExperimenterMessageService;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.service.rev130819.SalFlowService;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.statistics.rev130819.OpendaylightFlowStatisticsService;
@@ -49,7 +50,8 @@ public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseabl
     private ExtensionConverterRegistrator   extensionConverterRegistrator;
     private NiciraExtensionCodecRegistrator niciraExtensionCodecRegistrator;
 
-    private RpcRegistration<LabTestService> labTestServiceRpcRegistration;
+    private RpcRegistration<LabTestService>       labTestServiceRpcRegistration;
+    private RpcRegistration<LabHealthCareService> labHealthCareServiceRpcRegistration;
 
     public LabcontrollerProvider(SwitchConnectionProvider switchConnectionProvider, NotificationProviderService notificationProviderService,
                                  ExtensionConverterRegistrator extensionConverterRegistrator,
@@ -73,7 +75,9 @@ public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseabl
         this.portStatisticsService = session.getRpcService(OpendaylightPortStatisticsService.class);
         this.packetProcessingService = session.getRpcService(PacketProcessingService.class);
 
-        this.labTestServiceRpcRegistration = session.addRpcImplementation(LabTestService.class, new LabTestServiceImpl(salExperimenterMessageService));
+        this.labTestServiceRpcRegistration = session.addRpcImplementation(LabTestService.class,
+                new LabTestServiceImpl(salExperimenterMessageService));
+        this.labHealthCareServiceRpcRegistration = session.addRpcImplementation(LabHealthCareService.class, new LabHealthCareServiceImpl());
 
         new TlvExperimenterRegister(switchConnectionProvider, extensionConverterRegistrator).init();
 
@@ -82,7 +86,8 @@ public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseabl
 
     @Override
     public void close() throws Exception {
-        labTestServiceRpcRegistration.close();
+        this.labTestServiceRpcRegistration.close();
+        this.labHealthCareServiceRpcRegistration.close();
 
         LOG.info("LabcontrollerProvider Closed");
     }
