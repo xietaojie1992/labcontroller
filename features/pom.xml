@@ -116,8 +116,11 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
             <artifactId>labcontroller-api</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>labcontroller-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.opendaylight.openflowplugin</groupId>
@@ -129,10 +132,6 @@ and is available at http://www.eclipse.org/legal/epl-v10.html INTERNAL
             <artifactId>features-openflowplugin-extension</artifactId>
             <version>${openflowplugin.version}</version>
         </dependency>
-
-
-
-
 
     </dependencies>
 </project>

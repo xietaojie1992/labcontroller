@@ -29,17 +29,16 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
             <artifactId>labcontroller-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>labcontroller-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <!-- Testing Dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -68,6 +67,9 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
                         <Import-Package>*;resolution:=optional</Import-Package>
                         <Bundle-Name>${project.groupId}.${project.artifactId}</Bundle-Name>
                         <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <Embed-Directory>lib</Embed-Directory>
+                        <Embed-StripGroup>true</Embed-StripGroup>
                     </instructions>
                 </configuration>
             </plugin>
