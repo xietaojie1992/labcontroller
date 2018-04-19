@@ -89,6 +89,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
                     <instructions>
                         <Export-Package>
                             org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.*,
+                            org.opendaylight.yang.gen.v1.ns.yang.labcontroller.model.*,
                         </Export-Package>
                         <Import-Package>*;resolution:=optional</Import-Package>
                         <Bundle-Name>${project.groupId}.${project.artifactId}</Bundle-Name>

@@ -1,0 +1,64 @@
+module lab-match-mdsal-ext {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:match:mdsal:ext";
+    prefix "lab-match-mdsal";
+
+    import yang-ext { prefix ext; revision-date "2013-07-09"; }
+    import opendaylight-match-types { prefix mtypes; revision-date "2013-10-26"; }
+    import flow-node-inventory { prefix fni; revision-date 2013-08-19; }
+    import opendaylight-inventory { prefix inv; revision-date "2013-08-19"; }
+    import sal-flow { prefix sal-flow; revision-date "2013-08-19"; }
+    import packet-processing { prefix sal-packet; revision-date "2013-07-09"; }
+    import openflowplugin-extension-general { prefix ext-gen; revision-date "2014-07-14"; }
+    import opendaylight-flow-statistics { prefix odl-flow-stats; revision-date "2013-08-19"; }
+    import nicira-match { prefix nicira-match; revision-date "2014-04-21"; }
+    import lab-match-ofj-ext { prefix lab-match-ofj; revision-date "2018-04-21"; }
+
+	revision "2018-04-21" {
+		description "test.";
+	}
+
+	identity test-match-condition-key {
+		base ext-gen:extension-key;
+	}
+
+	// MATCH augmentations : test-match-condition-grouping
+    // RPCS
+    augment "/sal-flow:add-flow/sal-flow:input/sal-flow:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-rpc-add-flow";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+    augment "/sal-flow:remove-flow/sal-flow:input/sal-flow:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-rpc-remove-flow";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:original-flow/sal-flow:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-rpc-update-flow-original";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:updated-flow/sal-flow:match/ext-gen:extension-list/ext-gen:extension" {
+		ext:augment-identifier "test-match-condition-rpc-update-flow-updated";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+
+    // DATA
+    augment "/inv:nodes/inv:node/fni:table/fni:flow/fni:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-nodes-node-table-flow";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+
+    // NOTIFICATIONS
+    augment "/sal-flow:switch-flow-removed/sal-flow:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-notif-switch-flow-removed";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+    augment "/sal-packet:packet-received/sal-packet:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-notif-packet-in";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+    augment "/odl-flow-stats:flows-statistics-update/odl-flow-stats:flow-and-statistics-map-list/odl-flow-stats:match/ext-gen:extension-list/ext-gen:extension" {
+        ext:augment-identifier "test-match-condition-notif-update-flow-stats";
+        uses lab-match-ofj:test-match-condition-grouping;
+    }
+
+}

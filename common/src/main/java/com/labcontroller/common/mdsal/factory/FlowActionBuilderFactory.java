@@ -2,6 +2,14 @@ package com.labcontroller.common.mdsal.factory;
 
 import com.labcontroller.common.constants.ProtocolNumber;
 import org.opendaylight.openflowplugin.api.OFConstants;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.action.mdsal.ext.rev180421.add.flow.input.instructions.instruction
+        .instruction.apply.actions._case.apply.actions.action.action.TestActionMovementRpcAddFlowApplyActionsCase;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.action.mdsal.ext.rev180421.add.flow.input.instructions.instruction
+        .instruction.apply.actions._case.apply.actions.action.action.TestActionMovementRpcAddFlowApplyActionsCaseBuilder;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.action.ofj.ext.rev180421.test.action.movement.grouping
+        .TestActionMovementValue;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.action.ofj.ext.rev180421.test.action.movement.grouping
+        .TestActionMovementValueBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.Ipv4Prefix;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.Uri;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.yang.types.rev100924.MacAddress;
@@ -36,6 +44,8 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.ni
         .instruction.instruction.apply.actions._case.apply.actions.action.action.NxActionResubmitNodesNodeTableFlowApplyActionsCaseBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.nicira.action.rev140714.nx.action.resubmit.grouping
         .NxResubmitBuilder;
+import org.opendaylight.yangtools.yang.binding.Augmentation;
+import org.opendaylight.yangtools.yang.binding.DataContainer;
 
 import java.math.BigInteger;
 
@@ -151,4 +161,9 @@ public class FlowActionBuilderFactory {
         return createOutputAction(OutputPortValues.FLOOD.toString(), order);
     }
 
+    public static ActionBuilder createTestActionMovementAction(Integer movement, int order) {
+        TestActionMovementRpcAddFlowApplyActionsCaseBuilder caseBuilder = new TestActionMovementRpcAddFlowApplyActionsCaseBuilder();
+        caseBuilder.setTestActionMovementValue(new TestActionMovementValueBuilder().setMovement(movement.longValue()).build());
+        return new ActionBuilder().setAction(caseBuilder.build()).setOrder(order).setKey(new ActionKey(order));
+    }
 }

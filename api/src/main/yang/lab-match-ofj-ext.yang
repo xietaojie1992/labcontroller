@@ -1,0 +1,33 @@
+module lab-match-ofj-ext {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:match:ofj:ext";
+    prefix "lab-match-ofj";
+
+	import yang-ext { prefix ext; revision-date "2013-07-09"; }
+	import openflow-extensible-match { prefix ofoxm; revision-date "2015-02-25"; }
+
+	revision "2018-04-21" {
+		description "using for codec.";
+	}
+
+	identity test-match-condition {
+		base ofoxm:match-field;
+	}
+
+	grouping test-match-condition-grouping {
+	    container test-match-condition-value {
+			leaf condition {
+				type uint32;
+			}
+	    }
+	}
+
+    augment "/ofoxm:oxm-container/ofoxm:match-entry-value" {
+		ext:augment-identifier "match-extension-case-aug";
+		case test-match-condition-case {
+		    uses test-match-condition-grouping;
+		}
+		// ... to be augmented
+    }
+
+}

@@ -1,12 +1,12 @@
 module lab-health-care {
     yang-version 1;
-    namespace "ns:yang:labcontroller:lab:test";
-    prefix "test";
+    namespace "ns:yang:labcontroller:lab:health-care";
+    prefix "health";
 
     import model-base { prefix base; revision-date 2018-03-17; }
 
     revision "2018-03-24" {
-        description "Initial revision of labcontroller lab test services";
+        description "Initial revision of labcontroller lab health care services";
     }
 
     rpc is-connection-valid {

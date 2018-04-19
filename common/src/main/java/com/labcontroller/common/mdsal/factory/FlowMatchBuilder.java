@@ -1,9 +1,17 @@
 package com.labcontroller.common.mdsal.factory;
 
+import com.google.common.collect.Lists;
 import com.labcontroller.common.constants.ProtocolNumber;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.match.mdsal.ext.rev180421.TestMatchConditionKey;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.match.mdsal.ext.rev180421.TestMatchConditionNodesNodeTableFlow;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.match.mdsal.ext.rev180421.TestMatchConditionNodesNodeTableFlowBuilder;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.match.ofj.ext.rev180421.TestMatchCondition;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.match.ofj.ext.rev180421.test.match.condition.grouping
+        .TestMatchConditionValueBuilder;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.Ipv4Prefix;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.inet.types.rev100924.PortNumber;
 import org.opendaylight.yang.gen.v1.urn.ietf.params.xml.ns.yang.ietf.yang.types.rev100924.MacAddress;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.inventory.rev130819.tables.table.FlowBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.Match;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.MatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.l2.types.rev130827.EtherType;
@@ -21,8 +29,16 @@ import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._3.match.Ipv4MatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.match.layer._4.match.TcpMatchBuilder;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.model.match.types.rev131026.vlan.match.fields.VlanIdBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.general.rev140714.GeneralAugMatchNodesNodeTableFlow;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.general.rev140714.GeneralAugMatchNodesNodeTableFlowBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.general.rev140714.general.extension.grouping.ExtensionBuilder;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.general.rev140714.general.extension.list.grouping
+        .ExtensionList;
+import org.opendaylight.yang.gen.v1.urn.opendaylight.openflowplugin.extension.general.rev140714.general.extension.list.grouping
+        .ExtensionListBuilder;
 
 import java.math.BigInteger;
+import java.util.List;
 
 /**
  * @author xietaojie1992
@@ -155,6 +171,18 @@ public class FlowMatchBuilder {
 
     public FlowMatchBuilder createUdpSrcMatch(Integer portNumber) {
         matchBuilder.setLayer4Match(FlowMatchBuilderFactory.createUdpDstMatch(portNumber).build());
+        return this;
+    }
+
+    public FlowMatchBuilder createTestMatchConditionMatch(Integer condition) {
+        List<ExtensionList> extensions = Lists.newArrayList();
+        extensions.add(new ExtensionListBuilder().setExtensionKey(TestMatchConditionKey.class).setExtension(new ExtensionBuilder()
+                .addAugmentation(TestMatchConditionNodesNodeTableFlow.class, new TestMatchConditionNodesNodeTableFlowBuilder()
+                        .setTestMatchConditionValue(new TestMatchConditionValueBuilder().setCondition(condition.longValue()).build())
+                        .build()).build()).build());
+        GeneralAugMatchNodesNodeTableFlow generalAugMatchNodesNodeTableFlow = new GeneralAugMatchNodesNodeTableFlowBuilder()
+                .setExtensionList(extensions).build();
+        matchBuilder.addAugmentation(GeneralAugMatchNodesNodeTableFlow.class, generalAugMatchNodesNodeTableFlow);
         return this;
     }
 

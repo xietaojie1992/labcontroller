@@ -21,6 +21,7 @@ and is available at http://www.eclipse.org/legal/epl-v10.html
     <feature name='odl-labcontroller-api' version='${project.version}' description='OpenDaylight :: labcontroller :: api'>
         <feature version='${mdsal.model.version}'>odl-mdsal-models</feature>
         <bundle>mvn:com.xietaojie.lab/labcontroller-api/{{VERSION}}</bundle>
+        <bundle>mvn:com.xietaojie.lab/labcontroller-common/{{VERSION}}</bundle>
     </feature>
 
     <feature name='odl-labcontroller' version='${project.version}' description='OpenDaylight :: labcontroller'>

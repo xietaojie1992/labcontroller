@@ -1,7 +1,7 @@
-module lab-extension-ofj-models {
+module lab-experimenter-ofj-ext {
     yang-version 1;
-	namespace "ns:yang:labcontroller:lab:extension:ofj:models";
-	prefix "lab-ofj-models";
+	namespace "ns:yang:labcontroller:lab:experimenter:ofj:ext";
+	prefix "lab-exp-ofj";
 
     import yang-ext { prefix ext; revision-date "2013-07-09"; }
     import openflow-types { prefix oft; revision-date "2013-07-31"; }

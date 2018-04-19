@@ -1,11 +1,12 @@
-package com.xietaojie.lab.impl.extension;
+package com.xietaojie.lab.impl.extension.experimeter;
 
+import com.xietaojie.lab.impl.extension.LabExtensionConstants;
 import org.opendaylight.openflowjava.protocol.api.keys.ExperimenterIdTypeSerializerKey;
 import org.opendaylight.openflowjava.protocol.spi.connection.SwitchConnectionProvider;
 import org.opendaylight.openflowplugin.api.OFConstants;
 import org.opendaylight.openflowplugin.extension.api.ExtensionConverterRegistrator;
 import org.opendaylight.openflowplugin.extension.api.TypeVersionKey;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.extension.mdsal.models.rev180317.send.experimenter.input.experimenter
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.experimenter.mdsal.ext.rev180317.send.experimenter.input.experimenter
         .message.of.choice.LabTlvExperimenterMessageSalCase;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.openflow.protocol.rev130731.experimenter.core.ExperimenterDataOfChoice;
 import org.slf4j.Logger;

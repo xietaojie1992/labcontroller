@@ -1,0 +1,30 @@
+module lab-action-ofj-ext {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:action:ofj:ext";
+    prefix "lab-action-ofj";
+
+    import yang-ext { prefix ext; revision-date "2013-07-09"; }
+	import openflow-action { prefix ofaction; revision-date "2015-02-03"; }
+	import openflow-types { prefix oft; revision-date "2013-07-31"; }
+
+    revision "2018-04-21" {
+        description "Initial revision of openflowjava extension modeles";
+    }
+
+    grouping test-action-movement-grouping {
+        container test-action-movement-value {
+            leaf movement {
+                type uint32;
+            }
+        }
+    }
+
+    augment "/ofaction:action-container/ofaction:action-choice"{
+    	description "Centec action extension cases";
+    	ext:augment-identifier "action-extension-case-aug";
+    	case test-action-movement-case{
+    		uses test-action-movement-grouping;
+    	}
+        // ... to be augmented
+    }
+}

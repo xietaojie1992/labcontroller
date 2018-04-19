@@ -14,8 +14,22 @@ module lab-test {
     }
 
     rpc say-hello-to-device {
+        description "test sending experimenter message to device";
         input {
             leaf dpid { type string;}
+        }
+        output {
+            uses base:rpc-result-grouping;
+        }
+    }
+
+    rpc add-extension-flow {
+        description "test match and action extension";
+        input {
+            leaf dpid { type string; }
+            leaf ofPort { type string;  }
+            leaf match-condition-value { type uint32; }
+            leaf action-movement-value { type uint32; }
         }
         output {
             uses base:rpc-result-grouping;

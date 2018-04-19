@@ -1,16 +1,15 @@
 package com.xietaojie.lab.impl;
 
-import com.google.common.util.concurrent.Futures;
 import org.opendaylight.openflowplugin.api.openflow.md.core.session.SessionContext;
 import org.opendaylight.openflowplugin.api.openflow.md.core.session.SwitchSessionKeyOF;
 import org.opendaylight.openflowplugin.openflow.md.core.session.SessionManagerOFImpl;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.IsConnectionValidInput;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.IsConnectionValidOutput;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.IsConnectionValidOutputBuilder;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.LabHealthCareService;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.ReconnectSessionInput;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.ReconnectSessionOutput;
-import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.test.rev180324.ReconnectSessionOutputBuilder;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.IsConnectionValidInput;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.IsConnectionValidOutput;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.IsConnectionValidOutputBuilder;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.LabHealthCareService;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.ReconnectSessionInput;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.ReconnectSessionOutput;
+import org.opendaylight.yang.gen.v1.ns.yang.labcontroller.lab.health.care.rev180324.ReconnectSessionOutputBuilder;
 import org.opendaylight.yangtools.yang.common.RpcResult;
 import org.opendaylight.yangtools.yang.common.RpcResultBuilder;
 import org.slf4j.Logger;

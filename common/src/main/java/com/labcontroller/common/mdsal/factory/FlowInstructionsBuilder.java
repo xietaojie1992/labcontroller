@@ -1,5 +1,6 @@
 package com.labcontroller.common.mdsal.factory;
 
+import com.google.common.collect.Lists;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.action.types.rev131112.action.list.Action;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.Instructions;
 import org.opendaylight.yang.gen.v1.urn.opendaylight.flow.types.rev131026.flow.InstructionsBuilder;
@@ -21,8 +22,7 @@ import java.util.List;
 public class FlowInstructionsBuilder {
 
     private InstructionsBuilder instructionsBuilder = new InstructionsBuilder();
-
-    private List<Action> actions = new ArrayList<>();
+    private List<Action> actions = Lists.newArrayList();
     private Long         meterId = 0L;
 
     private FlowInstructionsBuilder() {
@@ -38,12 +38,12 @@ public class FlowInstructionsBuilder {
     }
 
     public FlowInstructionsBuilder addAction(Action action) {
-        this.addAction(action);
+        this.actions.add(action);
         return this;
     }
 
     public Instructions build() {
-        List<Instruction> instructionList = new ArrayList<Instruction>();
+        List<Instruction> instructionList = Lists.newArrayList();
 
         // 1. build apply action
         ApplyActionsBuilder applyActionsBuilder = new ApplyActionsBuilder().setAction(actions);
@@ -55,12 +55,12 @@ public class FlowInstructionsBuilder {
         if (meterId > 0) {
             MeterBuilder meterBuilder = new MeterBuilder().setMeterId(new MeterId(meterId));
             MeterCaseBuilder meterCaseBuilder = new MeterCaseBuilder().setMeter(meterBuilder.build());
-            InstructionBuilder meterInstrunctionBuilder = new InstructionBuilder().setKey(new InstructionKey(0)).setOrder(0);
-            meterInstrunctionBuilder.setInstruction(meterCaseBuilder.build());
-            instructionList.add(meterInstrunctionBuilder.build());
+            InstructionBuilder meterInstructionBuilder = new InstructionBuilder().setKey(new InstructionKey(0)).setOrder(0);
+            meterInstructionBuilder.setInstruction(meterCaseBuilder.build());
+            instructionList.add(meterInstructionBuilder.build());
         }
 
-        // set instrunctionList to instrunctionsBuilder
+        // set instructionList to instructionsBuilder
         instructionsBuilder.setInstruction(instructionList);
         return instructionsBuilder.build();
     }
