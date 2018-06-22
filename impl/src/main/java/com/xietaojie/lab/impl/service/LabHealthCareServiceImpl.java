@@ -1,4 +1,4 @@
-package com.xietaojie.lab.impl;
+package com.xietaojie.lab.impl.service;
 
 import org.opendaylight.openflowplugin.api.openflow.md.core.session.SessionContext;
 import org.opendaylight.openflowplugin.api.openflow.md.core.session.SwitchSessionKeyOF;

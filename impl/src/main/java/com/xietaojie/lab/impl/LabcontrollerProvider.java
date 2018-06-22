@@ -9,6 +9,11 @@ package com.xietaojie.lab.impl;
 
 import com.google.common.base.Optional;
 import com.xietaojie.lab.impl.extension.LabExtensionRegister;
+import com.xietaojie.lab.impl.listeners.DataStoreListener;
+import com.xietaojie.lab.impl.listeners.ErrorListener;
+import com.xietaojie.lab.impl.listeners.PacketInListener;
+import com.xietaojie.lab.impl.service.LabHealthCareServiceImpl;
+import com.xietaojie.lab.impl.service.LabTestServiceImpl;
 import org.opendaylight.controller.md.sal.binding.api.DataBroker;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.ProviderContext;
 import org.opendaylight.controller.sal.binding.api.BindingAwareBroker.RpcRegistration;
@@ -42,6 +47,9 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
+/**
+ * @author xietaojie1992
+ */
 public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseable {
 
     private static final Logger LOG = LoggerFactory.getLogger(LabcontrollerProvider.class);
@@ -67,6 +75,9 @@ public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseabl
     private RpcRegistration<LabHealthCareService> labHealthCareServiceRpcRegistration;
 
     private LabExtensionRegister labExtensionRegister;
+    private DataStoreListener    dataStoreListener;
+    private ErrorListener        errorListener;
+    private PacketInListener     packetInListener;
 
     public LabcontrollerProvider(SwitchConnectionProvider switchConnectionProvider, NotificationProviderService notificationProviderService,
                                  ExtensionConverterRegistrator extensionConverterRegistrator,
@@ -99,11 +110,23 @@ public class LabcontrollerProvider implements BindingAwareProvider, AutoCloseabl
 
         labExtensionRegister.registerExtension();
 
+        this.dataStoreListener = new DataStoreListener(dataBroker);
+        this.errorListener = new ErrorListener(notificationProviderService);
+        this.packetInListener = new PacketInListener(notificationProviderService);
+
+        this.dataStoreListener.init();
+        this.errorListener.init();
+        this.packetInListener.init();
         LOG.info("LabcontrollerProvider Session Initiated");
     }
 
     @Override
     public void close() throws Exception {
+
+        this.dataStoreListener.close();
+        this.errorListener.close();
+        this.packetInListener.close();
+
         this.labTestServiceRpcRegistration.close();
         this.labHealthCareServiceRpcRegistration.close();
         labExtensionRegister.unregisterExtension();

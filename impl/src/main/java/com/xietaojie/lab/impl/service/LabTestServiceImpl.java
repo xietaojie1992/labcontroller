@@ -1,4 +1,4 @@
-package com.xietaojie.lab.impl;
+package com.xietaojie.lab.impl.service;
 
 import com.labcontroller.common.mdsal.factory.FlowActionBuilderFactory;
 import com.labcontroller.common.mdsal.factory.FlowBuilderFactory;
