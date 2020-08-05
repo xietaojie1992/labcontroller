@@ -1,0 +1,96 @@
+module lab-experimenter-ofj-ext {
+    yang-version 1;
+	namespace "ns:yang:labcontroller:lab:experimenter:ofj:ext";
+	prefix "lab-exp-ofj";
+
+    import yang-ext { prefix ext; revision-date "2013-07-09"; }
+    import openflow-types { prefix oft; revision-date "2013-07-31"; }
+    import openflow-protocol { prefix ofproto; revision-date "2013-07-31"; }
+    import opendaylight-inventory { prefix inv; revision-date "2013-08-19"; }
+    import openflowplugin-experimenter-types { prefix exp-types; revision-date "2015-10-20"; }
+
+    revision "2018-03-17" {
+		description "define labcontroller extension openflowjava models";
+	}
+
+    typedef lab-tlv-type {
+        type enumeration {
+            enum LAB_TYPE_HELLO {
+                value 0;
+            }
+            enum LAB_TYPE_TEST {
+                value 1;
+            }
+        }
+    }
+
+    grouping lab-tlv-experimenter-grouping {
+        description "Container for type-length-value experimenter message.";
+
+        leaf type {
+            description "unit16";
+            type lab-tlv-type;
+        }
+
+        leaf length {
+            type uint16;
+        }
+
+        leaf value {
+            type binary;
+        }
+    }
+
+    grouping lab-tlv-experimenter-notification-grouping {
+        description "To Be Supported";
+    }
+
+    grouping lab-tlv-multipart-request-experimenter-grouping {
+        description "To Be Supported";
+    }
+
+    grouping lab-tlv-multipart-reply-experimenter-grouping {
+        description "To Be Supported";
+    }
+
+    // send experimenter message
+    augment "/ofproto:experimenter/ofproto:input/ofproto:experimenter-data-of-choice" {
+        ext:augment-identifier "lab-tlv-experimenter-message-case-aug";
+        case lab-tlv-experimenter-message-case {
+            container lab-tlv-experimenter-message-data {
+                uses lab-tlv-experimenter-grouping;
+            }
+        }
+    }
+
+    // experimenter notification
+    augment "/ofproto:experimenter-message/ofproto:experimenter-data-of-choice" {
+        ext:augment-identifier "lab-tlv-experimenter-notification-message-case-aug";
+        case lab-tlv-experimenter-notification-message-case {
+            container lab-tlv-experimenter-notification-message-case-data {
+                uses lab-tlv-experimenter-notification-grouping;
+            }
+        }
+    }
+
+    // experimenter multipart request
+    augment "/ofproto:multipart-request/ofproto:input/ofproto:multipart-request-body/ofproto:multipart-request-experimenter-case/ofproto:multipart-request-experimenter/ofproto:experimenter-data-of-choice" {
+        ext:augment-identifier "lab-tlv-multipart-request-experimenter-case-aug";
+        case lab-tlv-multipart-request-experimenter-case {
+            container lab-tlv-multipart-request-experimenter-case-data {
+                uses lab-tlv-multipart-request-experimenter-grouping;
+            }
+        }
+    }
+
+    // experimenter multipart reply
+    augment "/ofproto:multipart-reply-message/ofproto:multipart-reply-body/ofproto:multipart-reply-experimenter-case/ofproto:multipart-reply-experimenter/ofproto:experimenter-data-of-choice" {
+        ext:augment-identifier "lab-tlv-multipart-reply-experimenter-case-aug";
+        case lab-tlv-multipart-reply-experimenter-case {
+            container lab-tlv-multipart-reply-experimenter-case-data {
+                uses lab-tlv-multipart-reply-experimenter-grouping;
+            }
+        }
+    }
+
+}

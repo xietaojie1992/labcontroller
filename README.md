@@ -36,3 +36,7 @@ labcontroller
 ├── src        | 
 └── pom.xml    | 项目根 pom 文件
 ```
+
+编译：`mvn -T 4 clean install -Dmaven.test.skip=true -DskipTests -Dcheckstyle.skip=true -Dmaven.javadoc.skip=true`
+
+编译之后，会在 karaf 模块下的 target 目录下生成包，jar/tar.gz/zip格式的包都有，解压后其实就是 assembly 目录下的内容，可执行文件在 bin 子目录里。想要在前台启动项目，只需要执行`./karaf`命令，即可完成启动并进入 karaf 命令行。在后台启动项目，可以执行`./start`命令，然后通过`./karaf -u karaf`命令进入 karaf 命令行模式。

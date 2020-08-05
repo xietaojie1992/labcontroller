@@ -1,0 +1,145 @@
+module lab-action-mdsal-ext {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:action:mdsal:ext";
+    prefix "lab-action-mdsal";
+
+    import yang-ext { prefix ext; revision-date "2013-07-09"; }
+    import opendaylight-action-types { prefix atypes; revision-date "2013-11-12"; }
+    import opendaylight-inventory { prefix inv; revision-date "2013-08-19"; }
+    import sal-flow { prefix sal-flow; revision-date "2013-08-19"; }
+    import flow-node-inventory { prefix fni; revision-date 2013-08-19; }
+    import openflowplugin-extension-general { prefix ext-gen; revision-date "2014-07-14"; }
+    import sal-group { prefix sal-group; revision-date "2013-09-18"; }
+    import packet-processing {prefix sal-packet;revision-date "2013-07-09";}
+    import opendaylight-flow-statistics {prefix odl-flow-stats;revision-date "2013-08-19";}
+    import opendaylight-group-statistics {prefix odl-group-stats;revision-date "2013-11-11";}
+    import opendaylight-direct-statistics {prefix directstat;revision-date "2016-05-11";}
+    import lab-action-ofj-ext { prefix lab-action-ofj; revision-date "2018-04-21"; }
+
+    revision "2018-04-21" {
+        description "...";
+    }
+
+    // RPC augment
+    augment "/sal-flow:add-flow/sal-flow:input/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:apply-actions-case/sal-flow:apply-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-add-flow-apply-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:add-flow/sal-flow:input/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:write-actions-case/sal-flow:write-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-add-flow-write-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:remove-flow/sal-flow:input/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:write-actions-case/sal-flow:write-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-add-flow-remove-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:original-flow/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:write-actions-case/sal-flow:write-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-update-flow-original-write-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:original-flow/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:apply-actions-case/sal-flow:apply-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-update-flow-original-apply-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:updated-flow/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:write-actions-case/sal-flow:write-actions/sal-flow:action/sal-flow:action" {
+        case test-action-movement-rpc-update-flow-updated-write-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-flow:update-flow/sal-flow:input/sal-flow:updated-flow/sal-flow:instructions/sal-flow:instruction/sal-flow:instruction/sal-flow:apply-actions-case/sal-flow:apply-actions/sal-flow:action/sal-flow:action" {
+    	case test-action-movement-rpc-update-flow-updated-apply-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/sal-group:add-group/sal-group:input/sal-group:buckets/sal-group:bucket/sal-group:action/sal-group:action" {
+	    case test-action-movement-rpc-add-group-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+	augment "/sal-group:remove-group/sal-group:input/sal-group:buckets/sal-group:bucket/sal-group:action/sal-group:action" {
+	    case test-action-movement-rpc-remove-group-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+	augment "/sal-group:update-group/sal-group:input/sal-group:original-group/sal-group:buckets/sal-group:bucket/sal-group:action/sal-group:action" {
+	    case test-action-movement-rpc-update-group-original-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+	augment "/sal-group:update-group/sal-group:input/sal-group:updated-group/sal-group:buckets/sal-group:bucket/sal-group:action/sal-group:action" {
+	    case test-action-movement-rpc-update-group-updated-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+	augment "/sal-packet:transmit-packet/sal-packet:input/sal-packet:action/sal-packet:action" {
+	    case test-action-movement-rpc-transmit-packet-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+    // DATA
+    augment "/inv:nodes/inv:node/fni:table/fni:flow/fni:instructions/fni:instruction/fni:instruction/fni:write-actions-case/fni:write-actions/fni:action/fni:action" {
+    	case test-action-movement-nodes-node-table-flow-write-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/inv:nodes/inv:node/fni:table/fni:flow/fni:instructions/fni:instruction/fni:instruction/fni:apply-actions-case/fni:apply-actions/fni:action/fni:action" {
+    	case test-action-movement-nodes-node-table-flow-apply-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/inv:nodes/inv:node/fni:group/fni:buckets/fni:bucket/fni:action/fni:action" {
+	    case test-action-movement-nodes-node-group-buckets-bucket-actions-case {
+	        uses lab-action-ofj:test-action-movement-grouping;
+	    }
+	}
+
+	//  NOTIFICATIONS
+    augment "/odl-flow-stats:flows-statistics-update/odl-flow-stats:flow-and-statistics-map-list/odl-flow-stats:instructions/odl-flow-stats:instruction/odl-flow-stats:instruction/odl-flow-stats:write-actions-case/odl-flow-stats:write-actions/odl-flow-stats:action/odl-flow-stats:action" {
+        case test-action-movement-notif-flows-statistics-update-write-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/odl-flow-stats:flows-statistics-update/odl-flow-stats:flow-and-statistics-map-list/odl-flow-stats:instructions/odl-flow-stats:instruction/odl-flow-stats:instruction/odl-flow-stats:apply-actions-case/odl-flow-stats:apply-actions/odl-flow-stats:action/odl-flow-stats:action" {
+        case test-action-movement-notif-flows-statistics-update-apply-actions-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/odl-group-stats:group-desc-stats-updated/odl-group-stats:group-desc-stats/odl-group-stats:buckets/odl-group-stats:bucket/odl-group-stats:action/odl-group-stats:action" {
+        case test-action-movement-notif-group-desc-stats-updated-case {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/directstat:get-flow-statistics/directstat:output/directstat:flow-and-statistics-map-list/directstat:instructions/directstat:instruction/directstat:instruction/directstat:apply-actions-case/directstat:apply-actions/directstat:action/directstat:action" {
+        case "test-action-movement-notif-direct-statistics-update-apply-actions-case" {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+
+    augment "/directstat:get-flow-statistics/directstat:output/directstat:flow-and-statistics-map-list/directstat:instructions/directstat:instruction/directstat:instruction/directstat:write-actions-case/directstat:write-actions/directstat:action/directstat:action" {
+        case "test-action-movement-notif-direct-statistics-update-write-actions-case" {
+            uses lab-action-ofj:test-action-movement-grouping;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+module lab-test {
+    yang-version 1;
+    namespace "ns:yang:labcontroller:lab:test";
+    prefix "test";
+
+    import model-base { prefix base; revision-date 2018-03-17; }
+
+    revision "2018-03-17" {
+        description "Initial revision of labcontroller lab test services";
+    }
+
+    rpc ping {
+        output { leaf response { type string; default "PONG"; }}
+    }
+
+    rpc say-hello-to-device {
+        description "test sending experimenter message to device";
+        input {
+            leaf dpid { type string;}
+        }
+        output {
+            uses base:rpc-result-grouping;
+        }
+    }
+
+    rpc add-extension-flow {
+        description "test match and action extension";
+        input {
+            leaf dpid { type string; }
+            leaf ofPort { type string;  }
+            leaf match-condition-value { type uint32; }
+            leaf action-movement-value { type uint32; }
+        }
+        output {
+            uses base:rpc-result-grouping;
+        }
+    }
+}

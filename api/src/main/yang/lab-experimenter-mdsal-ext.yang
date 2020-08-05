@@ -1,0 +1,36 @@
+module lab-experimenter-mdsal-ext {
+    yang-version 1;
+	namespace "ns:yang:labcontroller:lab:experimenter:mdsal:ext";
+	prefix "lab-exp-mdsal";
+
+    import yang-ext { prefix ext; revision-date "2013-07-09"; }
+    import sal-experimenter-message { prefix sal-exp; revision-date "2015-10-20"; }
+    import openflowplugin-extension-general { prefix ext-gen; revision-date "2014-07-14"; }
+    import openflowplugin-experimenter-types { prefix exp-type; revision-date "2015-10-20"; }
+    import lab-experimenter-ofj-ext { prefix lab-exp-ofj; revision-date "2018-03-17"; }
+
+    revision "2018-03-17" {
+		description "define labcontroller extension mdsal models";
+	}
+
+    // SalExperimenterMessageService.sendExperimenter
+    augment "/sal-exp:send-experimenter/sal-exp:input/sal-exp:experimenter-message-of-choice" {
+        ext:augment-identifier "lab-tlv-experimenter-message-sal-case-aug";
+        case lab-tlv-experimenter-message-sal-case {
+            container lab-tlv-experimenter-message-sal-data {
+                uses lab-exp-ofj:lab-tlv-experimenter-grouping;
+            }
+        }
+    }
+
+    // experimenter notification
+    augment "/sal-exp:experimenter-message-from-dev/sal-exp:experimenter-message-of-choice" {
+        ext:augment-identifier "lab-tlv-experimenter-notification-message-sal-case-aug";
+        case lab-tlv-experimenter-notification-message-sal-case {
+            container lab-tlv-experimenter-notification-message-sal-data {
+                uses lab-exp-ofj:lab-tlv-experimenter-notification-grouping;
+            }
+        }
+    }
+
+}
